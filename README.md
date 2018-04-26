@@ -1,2 +1,2 @@
-# dbeasy
+# dbeasy - Em Desenvolvimento
 crud pdo
