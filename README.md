@@ -69,3 +69,14 @@ $dbe->delete('your-table-name')->all()->run();
 *Notes about delete() method*
 - your table name and secundary method is required
 - value default in delete() methods is: 'undefined'
+
+
+### Licença
+DBEasy é um software open source licenciado sob a licença MIT (MIT). Veja [LICENSE](LICENSE) para maiores detalhes.
+
+### Redes sociais
+- [Facebook](https://fb.com/kelvys.moura)
+- [Instagran](https://instagram.com/kelvysmoura)
+- [Twitter](https://twitter.com/kelvysmoura)
+
+Desenvolvido por [Kelvys Moura](https://github.com/kelvysmoura)
