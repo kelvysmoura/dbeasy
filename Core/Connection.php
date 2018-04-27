@@ -7,8 +7,6 @@ use \PDOException;
 
 abstract class Connection{
 	
-	private $drive;
-	
 	private $host;
 	
 	private $port;
@@ -24,14 +22,13 @@ abstract class Connection{
 	private static $instance;
 
 	public function __construct($dbconfig){
-		$this->drive = (isset($dbconfig['drive']) && !empty($dbconfig['drive'])) ? $dbconfig['drive'] : 'mysql';
 		$this->host = (isset($dbconfig['host']) && !empty($dbconfig['host'])) ? $dbconfig['host'] : 'localhost';
 		$this->port = (isset($dbconfig['port']) && !empty($dbconfig['port'])) ? $dbconfig['port'] : '';
 		$this->dbname = (isset($dbconfig['dbname']) && !empty($dbconfig['dbname'])) ? $dbconfig['dbname'] : 'undefined';
 		self::$user = (isset($dbconfig['user']) && !empty($dbconfig['user'])) ? $dbconfig['user'] : 'root';
 		self::$pass = (isset($dbconfig['pass']) && !empty($dbconfig['pass'])) ? $dbconfig['pass'] : '';
 
-		self::$dns = "{$this->drive}:host={$this->host};dbname={$this->dbname};port={$this->port}";
+		self::$dns = "mysql:host={$this->host};dbname={$this->dbname};port={$this->port}";
 	}
 
 	public static function getInstance(){
@@ -51,9 +48,5 @@ abstract class Connection{
 
 	public static function prepare($sql){
 		return self::getInstance()->prepare($sql);
-	}
-	
-	public function getDns(){
-		return self::$dns;
 	}
 }
