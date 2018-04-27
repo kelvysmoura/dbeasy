@@ -4,5 +4,13 @@ namespace Core;
 
 class DBEasy extends Connection{
 
-	public function __construct(){}
+	private $setQuery;
+
+	public function __construct($dbconfig = []){
+		return parent::__construct($dbconfig);
+	}
+
+	public function read($tbname = 'undefined'){
+		return new Crud\Read($tbname);
+	}
 }
