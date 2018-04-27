@@ -21,4 +21,8 @@ class DBEasy extends Connection{
 	public function Update($tbname = 'undefined'){
 		return new Crud\Update($tbname);
 	}
+
+	public function Delete($tbname = 'undefined'){
+		return new Crud\Delete($tbname);
+	}
 }
