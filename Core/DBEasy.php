@@ -10,11 +10,15 @@ class DBEasy extends Connection{
 		return parent::__construct($dbconfig);
 	}
 
-	public function read($tbname = 'undefined'){
+	public function Read($tbname = 'undefined'){
 		return new Crud\Read($tbname);
 	}
 
 	public function Create($tbname = 'undefined'){
 		return new Crud\Create($tbname);
+	}
+
+	public function Update($tbname = 'undefined'){
+		return new Crud\Update($tbname);
 	}
 }

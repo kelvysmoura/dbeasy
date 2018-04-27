@@ -29,7 +29,7 @@ class Read{
 
 	public function id($id = null, $colname = 'id'){
 		if(!is_null($id)){
-			$this->query .= " WHERE id = ?";
+			$this->query .= " WHERE {$colname} = ?";
 			$this->active['id'] = true;
 			array_push($this->binds, $id);
 		}
