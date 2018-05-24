@@ -4,7 +4,7 @@ namespace Core;
 
 class DBEasy extends Connection{
 
-	public function __construct($dbconfig = []){
+	public function __construct($dbconfig = null){		
 		return parent::__construct($dbconfig);
 	}
 
