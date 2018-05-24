@@ -8,7 +8,7 @@ class Read{
 
 	private $tbname;
 	
-	private $cols;
+	private $fields = "*";
 
 	private $query;
 
@@ -18,15 +18,15 @@ class Read{
 
 	public function __construct($tbname = "undefined"){
 		$this->tbname = $tbname;
-		$this->query = "SELECT ";
+		$this->query = "SELECT {$this->fields} FROM {$this->tbname}";
 	}
 
-	public function cols($cols = "*"){
-		$this->cols = $cols;
-		$this->query .= "{$this->cols} FROM {$this->tbname}";
+	public function fields($fields = "*"){
+		$this->fields = $fields;
+		$this->query = "SELECT {$this->fields} FROM {$this->tbname}";
 		return $this;
 	}
-
+	
 	public function id($id = null, $colname = 'id'){
 		if(!is_null($id)){
 			$this->query .= " WHERE {$colname} = ?";
