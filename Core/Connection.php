@@ -21,16 +21,28 @@ abstract class Connection{
 
 	private static $instance;
 
+	private static $options = [];
+
 	public function __construct($use = null){
 		require_once 'config/db.php';
 		$use = (is_null($use) || empty($use)) ? $db['use_now'] : $use;
 		$dbconfig = $db[$use];
 
-		$this->host = (isset($dbconfig['host']) && !empty($dbconfig['host'])) ? $dbconfig['host'] : 'localhost';
-		$this->port = (isset($dbconfig['port']) && !empty($dbconfig['port'])) ? $dbconfig['port'] : '';
+		$this->host = (isset($dbconfig['host']) && !empty($dbconfig['host'])) ? $dbconfig['host'] : 'undefined';
+		$this->port = (isset($dbconfig['port'])) ? $dbconfig['port'] : '0000';
 		$this->dbname = (isset($dbconfig['dbname']) && !empty($dbconfig['dbname'])) ? $dbconfig['dbname'] : 'undefined';
-		self::$user = (isset($dbconfig['user']) && !empty($dbconfig['user'])) ? $dbconfig['user'] : 'root';
-		self::$pass = (isset($dbconfig['pass']) && !empty($dbconfig['pass'])) ? $dbconfig['pass'] : '';
+		self::$user = (isset($dbconfig['user']) && !empty($dbconfig['user'])) ? $dbconfig['user'] : 'undefined';
+		self::$pass = isset($dbconfig['pass']) ? $dbconfig['pass'] : 'undefined';
+		
+		foreach($dbconfig['attr_options'] as $k => $v){
+			if(!empty($v)){
+				$k = strtoupper($k);
+				$v = strtoupper($v);
+				$k = constant("PDO::ATTR_{$k}");
+				$v = constant("PDO::{$v}");
+				self::$options[$k] = $v;
+			}
+		}
 
 		self::$dns = "mysql:host={$this->host};dbname={$this->dbname};port={$this->port}";
 	}
@@ -38,9 +50,7 @@ abstract class Connection{
 	public static function getInstance(){
 		if(!isset(self::$instance)){
 			try{
-				self::$instance = new PDO(self::$dns, self::$user, self::$pass);
-				self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-				self::$instance->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+				self::$instance = new PDO(self::$dns, self::$user, self::$pass, self::$options);
 			}
 			catch(PDOException $e){
 				debug($e);

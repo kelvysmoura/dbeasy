@@ -26,7 +26,7 @@ class Read{
 		$this->query = "SELECT {$this->fields} FROM {$this->tbname}";
 		return $this;
 	}
-	
+
 	public function id($id = null, $colname = 'id'){
 		if(!is_null($id)){
 			$this->query .= " WHERE {$colname} = ?";
