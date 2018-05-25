@@ -16,7 +16,6 @@ class Create{
 	public function __construct($table = 'undefined'){
 		$this->tbname = $table;
 		$this->query = "INSERT INTO {$table}";
-		return $this;
 	}
 
 	public function set($datas = [], $run = false){
@@ -25,12 +24,8 @@ class Create{
 		$this->binds = $vals;
 		$mark = implode(',', array_filter(explode(',', str_repeat('?,', count($vals)))));
 		$this->query .= "({$cols}) VALUES({$mark})";
-		if(true === $run){
-			return $this->run();
-		}
-		else{
-			return $this;
-		}
+		
+		return (true === $run) ? $this->run() : $this;
 	}
 
 	public function run(){

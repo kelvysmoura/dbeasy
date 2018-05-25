@@ -18,8 +18,8 @@ $db['use_now'] = 'def';
 
 $db['def'] = array(
 	'host' => 'localhost',
-	'port' => '',
-	'dbname' => '',
+	'port' => '3307',
+	'dbname' => 'velk',
 	'user' => 'root',
 	'pass' => '',
 	'attr_options' => [

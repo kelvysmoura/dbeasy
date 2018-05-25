@@ -25,12 +25,8 @@ class Read{
 	public function fields($fields = "*", $run = false){
 		$this->fields = $fields;
 		$this->query = "SELECT {$this->fields} FROM {$this->tbname}";
-		if(true === $run){
-			return $this->run();
-		}
-		else{
-			return $this;
-		}
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
 	public function id($id = null, $colname = 'id', $run = false){
@@ -39,67 +35,72 @@ class Read{
 			$this->active['id'] = true;
 			array_push($this->binds, $id);
 		}
-		if(true === $run){
-			return $this->run();
-		}
-		else{
-			return $this;
-		}
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function wh($col = null, $val = null, $op = "="){
-		if(!is_null($col) && !is_null($val)){
+	public function wh($field = null, $val = null, $run = false){
+		if(!is_null($field) && !is_null($val)){
 			if($this->active['id'] === false){
-				$this->query .= " WHERE {$col} {$op} ?";
+				$field_operation = $this->whereOperation($field);
+				$this->query .= " WHERE {$field_operation} ?";
 				$this->active['wh'] = true;
 				array_push($this->binds, $val);
 			}
 		}
-		return $this;
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function andwh($col = null, $val = null, $op = "="){
-		if(!is_null($col) && !is_null($val)){
+	public function andwh($field = null, $val = null, $run = false){
+		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
-				$this->query .= " AND {$col} {$op} ?";
+				$field_operation = $this->whereOperation($field);
+				$this->query .= " AND {$field_operation} ?";
 				$this->active['andwh'] = true;
 				array_push($this->binds, $val);
 			}
 		}
-		return $this;
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function orwh($col = null, $val = null, $op = "="){
-		if(!is_null($col) && !is_null($val)){
+	public function orwh($field = null, $val = null, $run = false){
+		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
-				$this->query .= " OR {$col} {$op} ?";
+				$field_operation = $this->whereOperation($field);
+				$this->query .= " OR {$field_operation} ?";
 				$this->active['orwh'] = true;
 				array_push($this->binds, $val);
 			}
-		}		
-		return $this;	
+		}
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function limit($limit = null){
+	public function limit($limit = null, $run = false){
 		if(!is_null($limit)){
 			$this->query .= " LIMIT {$limit}";
 			$this->active['limit'] = true;
 		}
-		return $this;
+	
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function offset($off = null){
+	public function offset($off = null, $run = false){
 		if(!is_null($off) && $this->active['limit'] === true){
 			$this->query .= " OFFSET {$off}";
 		}
-		return $this;
+		
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function orderBy($order = null){
+	public function orderBy($order = null, $run = false){
 		if(!is_null($order)){
 			$this->query .= " ORDER BY {$order}";
 		}
-		return $this;
+		
+		return (true === $run) ? $this->run() : $this;
 	}
 
 	public function run(){
@@ -116,5 +117,15 @@ class Read{
 			$error = "<br>Não foi possivel executar a query <em><strong>{$this->query}</strong></em>.<br><br> <strong>PDO Message: </strong>{$e->getMessage()}";
 			die($error);
 		}
+	}
+
+	private function whereOperation($field){
+		return strstr($field, '>=') ? $field : (
+					strstr($field, '<=') ? $field : (
+						strstr($field, '>') ? $field : (
+							strstr($field, '<') ? $field : "$field ="
+						)
+					)
+				);
 	}
 }
