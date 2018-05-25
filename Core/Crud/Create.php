@@ -3,6 +3,7 @@
 namespace Core\Crud;
 
 use \Core\Connection;
+use \Exception;
 
 class Create{
 
@@ -18,13 +19,18 @@ class Create{
 		return $this;
 	}
 
-	public function set($datas = []){
+	public function set($datas = [], $run = false){
 		$cols = implode(',', array_keys($datas));
 		$vals = array_values($datas);
 		$this->binds = $vals;
 		$mark = implode(',', array_filter(explode(',', str_repeat('?,', count($vals)))));
 		$this->query .= "({$cols}) VALUES({$mark})";
-		return $this;
+		if(true === $run){
+			return $this->run();
+		}
+		else{
+			return $this;
+		}
 	}
 
 	public function run(){
@@ -37,7 +43,7 @@ class Create{
 			}
 			$run->execute();
 			return $run;	
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = "<br>Não foi possivel executar a query <em><strong>{$this->query}</strong></em>.<br><br> <strong>PDO Message: </strong>{$e->getMessage()}";
 			die($error);
 		}

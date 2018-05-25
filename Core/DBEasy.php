@@ -12,8 +12,14 @@ class DBEasy extends Connection{
 		return new Crud\Create($tbname);
 	}
 
-	public function Read($tbname = 'undefined'){
-		return new Crud\Read($tbname);
+	public function Read($tbname = 'undefined', $run = false){
+		$read = new Crud\Read($tbname);
+		if(true === $run){
+			return $read->run();
+		}
+		else{
+			return $read;
+		}
 	}
 
 	public function Update($tbname = 'undefined'){

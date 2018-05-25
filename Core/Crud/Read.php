@@ -3,6 +3,7 @@
 namespace Core\Crud;
 
 use \Core\Connection;
+use \Exception;
 
 class Read{
 
@@ -21,19 +22,29 @@ class Read{
 		$this->query = "SELECT {$this->fields} FROM {$this->tbname}";
 	}
 
-	public function fields($fields = "*"){
+	public function fields($fields = "*", $run = false){
 		$this->fields = $fields;
 		$this->query = "SELECT {$this->fields} FROM {$this->tbname}";
-		return $this;
+		if(true === $run){
+			return $this->run();
+		}
+		else{
+			return $this;
+		}
 	}
 
-	public function id($id = null, $colname = 'id'){
+	public function id($id = null, $colname = 'id', $run = false){
 		if(!is_null($id)){
 			$this->query .= " WHERE {$colname} = ?";
 			$this->active['id'] = true;
 			array_push($this->binds, $id);
 		}
-		return $this;
+		if(true === $run){
+			return $this->run();
+		}
+		else{
+			return $this;
+		}
 	}
 
 	public function wh($col = null, $val = null, $op = "="){
@@ -101,7 +112,7 @@ class Read{
 			}
 			$run->execute();
 			return $run;	
-		} catch (\Exception $e) {
+		} catch (Exception $e) {
 			$error = "<br>Não foi possivel executar a query <em><strong>{$this->query}</strong></em>.<br><br> <strong>PDO Message: </strong>{$e->getMessage()}";
 			die($error);
 		}
