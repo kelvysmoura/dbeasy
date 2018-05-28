@@ -118,14 +118,4 @@ class Read{
 			die($error);
 		}
 	}
-
-	private function whereOperation($field){
-		return strstr($field, '>=') ? $field : (
-					strstr($field, '<=') ? $field : (
-						strstr($field, '>') ? $field : (
-							strstr($field, '<') ? $field : "$field ="
-						)
-					)
-				);
-	}
 }

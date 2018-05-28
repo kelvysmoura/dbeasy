@@ -3,8 +3,10 @@
 namespace Core\Crud;
 
 use \Core\Connection;
+use \Core\Feature\Helper;
 
 class Update{
+	use Helper;
 	
 	private $tbname;
 
@@ -20,54 +22,63 @@ class Update{
 		return $this;
 	}
 
-	public function set($datas = []){
+	public function set($datas = [], $run = false){
 		$cols = implode('=?,',array_keys($datas)).'=?';
 		$vals = array_values($datas);
 		$this->binds = $vals;
 		$this->query .= " SET {$cols}";
-		return $this;
+		
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function id($id = null, $colname = 'id'){
+	public function id($id = null, $colname = 'id', $run = false){
 		if(!is_null($id)){
 			$this->query .= " WHERE {$colname} = ?";
 			$this->active['id'] = true;
 			array_push($this->binds, $id);
 		}
-		return $this;
+		
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function wh($col = null, $val = null, $op = "="){
-		if(!is_null($col) && !is_null($val)){
+	public function wh($field = null, $val = null, $run = false){
+		if(!is_null($field) && !is_null($val)){
 			if($this->active['id'] === false){
-				$this->query .= " WHERE {$col} {$op} ?";
+				$field_operation = $this->WhatOperation($field);
+				var_dump($field_operation);
+				$this->query .= " WHERE {$field_operation} ?";
 				$this->active['wh'] = true;
 				array_push($this->binds, $val);
 			}
 		}
-		return $this;
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function andwh($col = null, $val = null, $op = "="){
-		if(!is_null($col) && !is_null($val)){
+	public function andwh($field = null, $val = null, $run = false){
+		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
-				$this->query .= " AND {$col} {$op} ?";
+				$field_operation = $this->whereOperation($field);
+				$this->query .= " AND {$field_operation} ?";
 				$this->active['andwh'] = true;
 				array_push($this->binds, $val);
 			}
 		}
-		return $this;
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function orwh($col = null, $val = null, $op = "="){
-		if(!is_null($col) && !is_null($val)){
+	public function orwh($field = null, $val = null, $run = false){
+		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
-				$this->query .= " OR {$col} {$op} ?";
+				$field_operation = $this->whereOperation($field);
+				$this->query .= " OR {$field_operation} ?";
 				$this->active['orwh'] = true;
 				array_push($this->binds, $val);
 			}
-		}		
-		return $this;	
+		}
+
+		return (true === $run) ? $this->run() : $this;
 	}
 
 	public function run(){
