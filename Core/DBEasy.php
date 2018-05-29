@@ -15,7 +15,7 @@ class DBEasy extends Connection{
 	public function Read($tbname = 'undefined', $run = false){
 		$read = new Crud\Read($tbname);
 		if(true === $run){
-			return $read->run();
+			return $read->Run();
 		}
 		else{
 			return $read;
@@ -29,7 +29,7 @@ class DBEasy extends Connection{
 	public function Delete($tbname = 'undefined', $run = false){
 		$delete = new Crud\Delete($tbname);
 		if(true === $run){
-			return $delete->run();
+			return $delete->Run();
 		}
 		else{
 			return $delete;

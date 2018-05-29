@@ -47,7 +47,7 @@ abstract class Connection{
 		self::$dns = "mysql:host={$this->host};dbname={$this->dbname};port={$this->port}";
 	}
 
-	public static function getInstance(){
+	public static function GetInstance(){
 		if(!isset(self::$instance)){
 			try{
 				self::$instance = new PDO(self::$dns, self::$user, self::$pass, self::$options);
@@ -60,7 +60,7 @@ abstract class Connection{
 		return self::$instance;
 	}
 
-	public static function prepare($sql){
-		return self::getInstance()->prepare($sql);
+	public static function Prepare($sql){
+		return self::GetInstance()->prepare($sql);
 	}
 }

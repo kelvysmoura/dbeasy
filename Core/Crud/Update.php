@@ -23,26 +23,26 @@ class Update{
 		return $this;
 	}
 
-	public function set($datas = [], $run = false){
+	public function Set($datas = [], $run = false){
 		$cols = implode('=?,',array_keys($datas)).'=?';
 		$vals = array_values($datas);
 		$this->binds = $vals;
 		$this->query .= " SET {$cols}";
 		
-		return (true === $run) ? $this->run() : $this;
+		return (true === $run) ? $this->Run() : $this;
 	}
 
-	public function id($id = null, $colname = 'id', $run = false){
+	public function Id($id = null, $colname = 'id', $run = false){
 		if(!is_null($id)){
 			$this->query .= " WHERE {$colname} = ?";
 			$this->active['id'] = true;
 			array_push($this->binds, $id);
 		}
 		
-		return (true === $run) ? $this->run() : $this;
+		return (true === $run) ? $this->Run() : $this;
 	}
 
-	public function wh($field = null, $val = null, $run = false){
+	public function Wh($field = null, $val = null, $run = false){
 		if(!is_null($field) && !is_null($val)){
 			if($this->active['id'] === false){
 				$field_operation = $this->WhatOperation($field);
@@ -53,10 +53,10 @@ class Update{
 			}
 		}
 
-		return (true === $run) ? $this->run() : $this;
+		return (true === $run) ? $this->Run() : $this;
 	}
 
-	public function andwh($field = null, $val = null, $run = false){
+	public function Andwh($field = null, $val = null, $run = false){
 		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
 				$field_operation = $this->whereOperation($field);
@@ -66,10 +66,10 @@ class Update{
 			}
 		}
 
-		return (true === $run) ? $this->run() : $this;
+		return (true === $run) ? $this->Run() : $this;
 	}
 
-	public function orwh($field = null, $val = null, $run = false){
+	public function Orwh($field = null, $val = null, $run = false){
 		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
 				$field_operation = $this->whereOperation($field);
@@ -79,12 +79,12 @@ class Update{
 			}
 		}
 
-		return (true === $run) ? $this->run() : $this;
+		return (true === $run) ? $this->Run() : $this;
 	}
 
-	public function run(){
+	public function Run(){
 		try {
-			$run = Connection::prepare($this->query);
+			$run = Connection::Prepare($this->query);
 			if(!empty($this->binds)){
 				foreach($this->binds as $k => $b){
 					$run->bindValue($k+1, $b);

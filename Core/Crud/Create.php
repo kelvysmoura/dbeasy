@@ -18,7 +18,7 @@ class Create{
 		$this->query = "INSERT INTO {$table}";
 	}
 
-	public function set($datas = [], $run = false){
+	public function Set($datas = [], $run = false){
 		$cols = implode(',', array_keys($datas));
 		$vals = array_values($datas);
 		$this->binds = $vals;
@@ -28,9 +28,9 @@ class Create{
 		return (true === $run) ? $this->run() : $this;
 	}
 
-	public function run(){
+	public function Run(){
 		try {
-			$run = Connection::prepare($this->query);
+			$run = Connection::Prepare($this->query);
 			if(!empty($this->binds)){
 				foreach($this->binds as $k => $b){
 					$run->bindValue($k+1, $b);
