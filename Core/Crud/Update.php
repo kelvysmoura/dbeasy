@@ -3,6 +3,7 @@
 namespace Core\Crud;
 
 use \Core\Connection;
+use \Exception;
 use \Core\Feature\Helper;
 
 class Update{

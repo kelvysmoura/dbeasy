@@ -26,7 +26,13 @@ class DBEasy extends Connection{
 		return new Crud\Update($tbname);
 	}
 
-	public function Delete($tbname = 'undefined'){
-		return new Crud\Delete($tbname);
+	public function Delete($tbname = 'undefined', $run = false){
+		$delete = new Crud\Delete($tbname);
+		if(true === $run){
+			return $delete->run();
+		}
+		else{
+			return $delete;
+		}
 	}
 }
