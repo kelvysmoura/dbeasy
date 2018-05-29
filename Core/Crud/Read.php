@@ -4,8 +4,10 @@ namespace Core\Crud;
 
 use \Core\Connection;
 use \Exception;
+use \Core\Feature\Helper;
 
 class Read{
+	use Helper;
 
 	private $tbname;
 	
@@ -42,7 +44,7 @@ class Read{
 	public function wh($field = null, $val = null, $run = false){
 		if(!is_null($field) && !is_null($val)){
 			if($this->active['id'] === false){
-				$field_operation = $this->whereOperation($field);
+				$field_operation = $this->WhatOperation($field);
 				$this->query .= " WHERE {$field_operation} ?";
 				$this->active['wh'] = true;
 				array_push($this->binds, $val);
@@ -55,7 +57,7 @@ class Read{
 	public function andwh($field = null, $val = null, $run = false){
 		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
-				$field_operation = $this->whereOperation($field);
+				$field_operation = $this->WhatOperation($field);
 				$this->query .= " AND {$field_operation} ?";
 				$this->active['andwh'] = true;
 				array_push($this->binds, $val);
@@ -68,7 +70,7 @@ class Read{
 	public function orwh($field = null, $val = null, $run = false){
 		if(!is_null($field) && !is_null($val)){
 			if($this->active['wh'] === true OR $this->active['id'] === true){
-				$field_operation = $this->whereOperation($field);
+				$field_operation = $this->WhatOperation($field);
 				$this->query .= " OR {$field_operation} ?";
 				$this->active['orwh'] = true;
 				array_push($this->binds, $val);
@@ -101,6 +103,14 @@ class Read{
 		}
 		
 		return (true === $run) ? $this->run() : $this;
+	}
+
+	public function asc($field = null, $run = false){
+		return $this->orderBy("$field ASC", $run);
+	}
+
+	public function desc($field = null, $run = false){
+		return $this->orderBy("$field DESC", $run);
 	}
 
 	public function run(){
