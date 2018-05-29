@@ -1,6 +1,6 @@
 <?php 
 
-namespace Core\Feature;
+namespace Core\Trace;
 
 trait Helper{
 

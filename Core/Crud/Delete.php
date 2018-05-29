@@ -4,7 +4,7 @@ namespace Core\Crud;
 
 use \Core\Connection;
 use \Exception;
-use \Core\Feature\Helper;
+use \Core\Trace\Helper;
 
 class Delete{
 	use Helper;
