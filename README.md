@@ -4,7 +4,7 @@
 - [Create](https://github.com/kelvysmoura/dbeasy#create)
 - [Read](https://github.com/kelvysmoura/dbeasy#read)
 - [Update](https://github.com/kelvysmoura/dbeasy#update)
-- [Delete](https://github.com/kelvysmoura/dbeasy#Delete)
+- [Delete](https://github.com/kelvysmoura/dbeasy#delete)
 - [Executando query](https://github.com/kelvysmoura/dbeasy#executando-uma-query)
 - [Detalhes dos metodos CRUD](https://github.com/kelvysmoura/dbeasy#detalhes-de-m%C3%A9todo-crud)
 - [Where](https://github.com/kelvysmoura/dbeasy#m%C3%A9todos-where)
@@ -34,7 +34,7 @@ $db['def'] = array(
 	]
 );
 ```
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Autoload e Connection
@@ -48,7 +48,7 @@ use Core\DBEasy;
 # Connection
 $dbe = new DBEasy('your_config_db');	# Optional | Default: $db['use_now']
 ```
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Create
@@ -57,7 +57,7 @@ $dbe = new DBEasy('your_config_db');	# Optional | Default: $db['use_now']
 $dbe->Create('table_name')->Set(['field' => 'value']])->Run();
 # INSERT INTO table_name(field) VALUE(value);
 ```
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Read
@@ -90,7 +90,7 @@ $dbe->Read('table_name')->Desc('id');
 $dbe->Read('table_name')->orderBy('id Desc')->Run();
 # SELECT * FROM table_name ORDER BY username DESC;
 ```
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Update
@@ -110,9 +110,10 @@ $dbe->update('table_name')->Set(['field' => 'value']])->Id(1)->Run();
 # ->Wh(string|required, any|required, boolean|optional|default:false)
 # ->Andwh(string|required, boolean|optional|default:false)
 # ->Orwh(string|required, boolean|optional|default:false)
+# 
 # ################################################################################
 ```
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 ### Delete
 ***Sintaxe:** Delete(string $table [, boolean $run = false])*
@@ -131,9 +132,10 @@ $dbe->delete('table_name')->Id(1)->Run();
 # ->Wh(string|required, any|required, boolean|optional|default:false)
 # ->Andwh(string|required, boolean|optional|default:false)
 # ->Orwh(string|required, boolean|optional|default:false)
+# 
 # ################################################################################
 ```
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Executando uma query
@@ -153,7 +155,7 @@ $dbe->Read('table_name')->id(1, true)
 - Ambos os métodos acima executam a query: *SELECT * FROM table_name WHERE id = 1;*
 - **Escolha apenas uma das duas formas**
 
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Detalhes de método CRUD
@@ -213,7 +215,9 @@ $dbe->Read('table_name')->id(1, true)
 
 > Ao utilizar uma das duas formas de execução de query sem antes chamar um dos métodos acima,
 > todos os registro do sua tabela serão deletados
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Métodos where
 
@@ -233,7 +237,8 @@ $dbe->Read('table_name')->id(1, true)
 - Não chame método *Id* depois de *Wh, Andwh* ou *Orwh*
 - Não chame método *Andwh* e/ou *Orwh* antes do método *Wh*
 - Método *Andwh* e *Orwh* podem ser chamados depois do método *Id*
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Método Set
@@ -243,7 +248,8 @@ $dbe->Read('table_name')->id(1, true)
 - O primeiro prametro deve receber um array associativo
 - No contexto do método *Create* o índice é o nome da coluna da tabela e o valor do índice é o que deseja **inserir** nessa coluna
 - No contexto do método *Update* o valor do índice é o que deseja **alterar** na coluna da tabela
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Métodos order by
@@ -256,7 +262,8 @@ $dbe->Read('table_name')->id(1, true)
 
 - **Desc(string $field [, boolean $run = false])**
   - Método usado para adicionar clausula ASC na clausula ORDER BY
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Métodos limit e offset
@@ -268,7 +275,8 @@ $dbe->Read('table_name')->id(1, true)
 - **Offset(int [, boolean $run = false])**
   - Adiciona a clausula OFFSET na construção de uma query
   - Não pode ser chamado antes do método *Limit*
-[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+[**Topo**](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 
 ### Licença
