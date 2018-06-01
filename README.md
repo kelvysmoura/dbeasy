@@ -1,5 +1,18 @@
 ## DBEasy - v1.1.0
 
+- [Inicio](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+- [Create](https://github.com/kelvysmoura/dbeasy#create)
+- [Read](https://github.com/kelvysmoura/dbeasy#read)
+- [Update](https://github.com/kelvysmoura/dbeasy#update)
+- [Delete](https://github.com/kelvysmoura/dbeasy#Delete)
+- [Executando query](https://github.com/kelvysmoura/dbeasy#executando-uma-query)
+- [Detalhes dos metodos CRUD](https://github.com/kelvysmoura/dbeasy#detalhes-de-m%C3%A9todo-crud)
+- [Where](https://github.com/kelvysmoura/dbeasy#m%C3%A9todos-where)
+- [Metodo Set](https://github.com/kelvysmoura/dbeasy#m%C3%A9todo-set)
+- [Order by](https://github.com/kelvysmoura/dbeasy#m%C3%A9todos-order-by)
+- [Limit e Offset](https://github.com/kelvysmoura/dbeasy#m%C3%A9todos-limit-e-offset)
+- [Licença e contatos](https://github.com/kelvysmoura/dbeasy#redes-sociais)
+
 ### config/db.php
 ```php
 # Arquivo de configuração do banco de dados
@@ -111,9 +124,8 @@ $dbe->delete('table_name')->Id(1)->Run();
 # ################################################################################
 ```
 
----
 ### Executando uma query
----
+
 - Primeira forma de executar uma query é chamando o método Run()
 - Segunda forma de executar uma query é passando *true* no ultimo parâmetro dos métodos que aceitam um valor do tipo boolean opcional
 - Se a segunda forma for usada o metodo Run() não precisa ser chamado
@@ -128,14 +140,12 @@ $dbe->Read('table_name')->id(1, true)
 ```
 - Ambos os métodos acima executam a query: *SELECT * FROM table_name WHERE id = 1;*
 - **Escolha apenas uma das duas formas**
----
 
 ### Detalhes de método CRUD
----
+
 #### Create(string $table)
 *Deve chamar o metodo*
 - Set(array $insert [, boolean $run = false]);
----
 
 #### Read(string $table [, boolean $run = false])
 *Pode chamar os metodos*
@@ -158,7 +168,6 @@ $dbe->Read('table_name')->id(1, true)
 - Desc(array $desc, [, boolean $run = false]);
 
 - OrderBy(array $order_by, [, boolean $run = false]);
----
 
 #### Update(string $table [, boolean $run = false])
 *Pode chamar os métodos*
@@ -172,7 +181,6 @@ $dbe->Read('table_name')->id(1, true)
 
 > Se for utilizado uma das duas formas de execução de query sem antes chamar um dos métodos acima,
 > todos os registro do sua tabela serão atualizados
----
 
 #### Delete(string $table [, boolean $run = false])
 *Pode chamar os métodos*
@@ -189,17 +197,15 @@ $dbe->Read('table_name')->id(1, true)
 
 
 ### Métodos where
----
+
 - **Id(string $field [, boolean $run = false])**
   - Método usado para adicionar uma clausula WHERE (especificamente para uma coluna de noma id) na construção de uma query
 
 - **Wh(string $field, any $value [, boolean $run = false])**
   - Método usado para adiciona uma clausula WHERE na construção de uma query
----
 
 - **Andwh(string $field, any $value [, boolean $run = false])**
   - Método usado para adiciona AND a uma clausula WHERE na construção de uma query
----
 
 - **Orwh(string $field, any $value [, boolean $run = false])**
   - Método usado para adiciona OR a uma clausula WHERE na custrução de uma query
@@ -216,25 +222,19 @@ $dbe->Read('table_name')->id(1, true)
 - O primeiro prametro deve receber um array associativo
 - No contexto do método *Create* o índice é o nome da coluna da tabela e o valor do índice é o que deseja **inserir** nessa coluna
 - No contexto do método *Update* o valor do índice é o que deseja **alterar** na coluna da tabela
----
 
 ### Métodos order by
----
 
 - **OrderBy(string $order_by [, boolean $run = false])**
   - Método usado para adicionar clausula ORDER BY na construção de uma query
----
 
 - **Asc(string $field [, boolean $run = false])**
   - Método usado para adicionar clausula ASC na clausula ORDER BY
----
 
 - **Desc(string $field [, boolean $run = false])**
   - Método usado para adicionar clausula ASC na clausula ORDER BY
----
 
 ### Métodos limit e offset
----
 
 - **Limit(int $limit [, boolean $run = false])**
   - Adiciona a clausula LIMIT na construção de uma query
@@ -243,7 +243,6 @@ $dbe->Read('table_name')->id(1, true)
 - **Offset(int [, boolean $run = false])**
   - Adiciona a clausula OFFSET na construção de uma query
   - Não pode ser chamado antes do método *Limit*
----
 
 ### Licença
 DBEasy é um software open source licenciado sob a licença MIT (MIT). Veja [LICENSE](LICENSE) para maiores detalhes.
