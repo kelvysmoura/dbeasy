@@ -34,6 +34,9 @@ $db['def'] = array(
 	]
 );
 ```
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+
 ### Autoload e Connection
 ```php
 # Autoload
@@ -45,6 +48,8 @@ use Core\DBEasy;
 # Connection
 $dbe = new DBEasy('your_config_db');	# Optional | Default: $db['use_now']
 ```
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Create
 ***Sintaxe:** Create(string $table)*
@@ -52,6 +57,8 @@ $dbe = new DBEasy('your_config_db');	# Optional | Default: $db['use_now']
 $dbe->Create('table_name')->Set(['field' => 'value']])->Run();
 # INSERT INTO table_name(field) VALUE(value);
 ```
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Read
 ***Sintaxe:** Read(string $table [, boolean $run = false])*
@@ -83,6 +90,8 @@ $dbe->Read('table_name')->Desc('id');
 $dbe->Read('table_name')->orderBy('id Desc')->Run();
 # SELECT * FROM table_name ORDER BY username DESC;
 ```
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Update
 ***Sintaxe:** Update(string $table [, boolean $run = false])*
@@ -103,6 +112,7 @@ $dbe->update('table_name')->Set(['field' => 'value']])->Id(1)->Run();
 # ->Orwh(string|required, boolean|optional|default:false)
 # ################################################################################
 ```
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 ### Delete
 ***Sintaxe:** Delete(string $table [, boolean $run = false])*
@@ -123,6 +133,8 @@ $dbe->delete('table_name')->Id(1)->Run();
 # ->Orwh(string|required, boolean|optional|default:false)
 # ################################################################################
 ```
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Executando uma query
 
@@ -141,11 +153,16 @@ $dbe->Read('table_name')->id(1, true)
 - Ambos os métodos acima executam a query: *SELECT * FROM table_name WHERE id = 1;*
 - **Escolha apenas uma das duas formas**
 
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
+
 ### Detalhes de método CRUD
+
 
 #### Create(string $table)
 *Deve chamar o metodo*
 - Set(array $insert [, boolean $run = false]);
+
 
 #### Read(string $table [, boolean $run = false])
 *Pode chamar os metodos*
@@ -169,6 +186,7 @@ $dbe->Read('table_name')->id(1, true)
 
 - OrderBy(array $order_by, [, boolean $run = false]);
 
+
 #### Update(string $table [, boolean $run = false])
 *Pode chamar os métodos*
 - Id(int $id [, boolean $run = false]);
@@ -182,6 +200,7 @@ $dbe->Read('table_name')->id(1, true)
 > Se for utilizado uma das duas formas de execução de query sem antes chamar um dos métodos acima,
 > todos os registro do sua tabela serão atualizados
 
+
 #### Delete(string $table [, boolean $run = false])
 *Pode chamar os métodos*
 - Id(int $id [, boolean $run = false]);
@@ -194,7 +213,7 @@ $dbe->Read('table_name')->id(1, true)
 
 > Ao utilizar uma das duas formas de execução de query sem antes chamar um dos métodos acima,
 > todos os registro do sua tabela serão deletados
-
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
 
 ### Métodos where
 
@@ -210,10 +229,12 @@ $dbe->Read('table_name')->id(1, true)
 - **Orwh(string $field, any $value [, boolean $run = false])**
   - Método usado para adiciona OR a uma clausula WHERE na custrução de uma query
 
-##### Combinação de métodos where
+#### Combinação de métodos where
 - Não chame método *Id* depois de *Wh, Andwh* ou *Orwh*
 - Não chame método *Andwh* e/ou *Orwh* antes do método *Wh*
 - Método *Andwh* e *Orwh* podem ser chamados depois do método *Id*
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Método Set
 ***Sintaxe:** Set(array $fields [, boolean $run = false])*
@@ -222,6 +243,8 @@ $dbe->Read('table_name')->id(1, true)
 - O primeiro prametro deve receber um array associativo
 - No contexto do método *Create* o índice é o nome da coluna da tabela e o valor do índice é o que deseja **inserir** nessa coluna
 - No contexto do método *Update* o valor do índice é o que deseja **alterar** na coluna da tabela
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Métodos order by
 
@@ -233,6 +256,8 @@ $dbe->Read('table_name')->id(1, true)
 
 - **Desc(string $field [, boolean $run = false])**
   - Método usado para adicionar clausula ASC na clausula ORDER BY
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Métodos limit e offset
 
@@ -243,6 +268,8 @@ $dbe->Read('table_name')->id(1, true)
 - **Offset(int [, boolean $run = false])**
   - Adiciona a clausula OFFSET na construção de uma query
   - Não pode ser chamado antes do método *Limit*
+[Topo](https://github.com/kelvysmoura/dbeasy#dbeasy---v110)
+
 
 ### Licença
 DBEasy é um software open source licenciado sob a licença MIT (MIT). Veja [LICENSE](LICENSE) para maiores detalhes.
